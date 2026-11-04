@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, Check, CircleHelp, LoaderCircle } from 'lucide-react';
 import Link from 'next/link';
 
-import { quizService } from '@/services/quiz.service';
+import { quizService, ApiError } from '@/services/quiz.service';
 import type { Quiz, QuizQuestion } from '@/types/quiz';
 
 const questionTypeLabels = {
@@ -74,6 +74,7 @@ function QuestionDetails({
 
 export default function QuizDetails({ id }: { id: string }) {
   const [quiz, setQuiz] = useState<Quiz | null>(null);
+  const [isNotFound, setIsNotFound] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -83,9 +84,13 @@ export default function QuizDetails({ id }: { id: string }) {
         const data = await quizService.getById(id);
         setQuiz(data);
       } catch (error) {
-        setError(
-          error instanceof Error ? error.message : 'Failed to load quiz',
-        );
+        if (error instanceof ApiError && error.status === 404) {
+          setIsNotFound(true);
+        } else {
+          setError(
+            error instanceof Error ? error.message : 'Failed to load quiz',
+          );
+        }
       } finally {
         setIsLoading(false);
       }
@@ -102,17 +107,23 @@ export default function QuizDetails({ id }: { id: string }) {
     );
   }
 
-  if (error || !quiz) {
+  if (isNotFound || error || !quiz) {
+    const title = isNotFound ? 'Quiz not found' : 'Something went wrong';
+
+    const message = isNotFound
+      ? "The quiz you're looking for doesn't exist or may have been deleted."
+      : error || 'Unable to load quiz. Please try again later.';
+
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
         <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-indigo-50">
           <CircleHelp className="h-8 w-8 text-indigo-600" />
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900">Quiz not found</h1>
+        <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
 
         <p className="mt-2 max-w-md text-sm leading-6 text-gray-500">
-          The quiz you`re looking for doesn`t exist or may have been deleted.
+          {message}
         </p>
 
         <Link
