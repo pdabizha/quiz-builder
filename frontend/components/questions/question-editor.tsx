@@ -10,10 +10,7 @@ interface QuestionEditorProps {
   onRemove: () => void;
 }
 
-export function QuestionEditor({
-  index,
-  onRemove,
-}: QuestionEditorProps) {
+export function QuestionEditor({ index, onRemove }: QuestionEditorProps) {
   const {
     register,
     control,
@@ -60,9 +57,7 @@ export function QuestionEditor({
             {index + 1}
           </span>
 
-          <h3 className="font-semibold text-gray-900">
-            Question {index + 1}
-          </h3>
+          <h3 className="font-semibold text-gray-900">Question {index + 1}</h3>
         </div>
 
         <button
@@ -195,9 +190,7 @@ export function QuestionEditor({
       {question.type === 'CHECKBOX' && (
         <div className="mt-6">
           <div className="mb-3">
-            <p className="text-sm font-medium text-gray-700">
-              Answer options
-            </p>
+            <p className="text-sm font-medium text-gray-700">Answer options</p>
             <p className="mt-1 text-xs text-gray-400">
               Select all correct answers.
             </p>

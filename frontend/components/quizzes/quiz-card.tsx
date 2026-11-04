@@ -8,11 +8,7 @@ interface QuizCardProps {
   isDeleting: boolean;
 }
 
-export function QuizCard({
-  quiz,
-  onDelete,
-  isDeleting,
-}: QuizCardProps) {
+export function QuizCard({ quiz, onDelete, isDeleting }: QuizCardProps) {
   return (
     <article className="group rounded-xl border border-gray-200 bg-white p-5 transition hover:border-violet-200 hover:shadow-md sm:p-6">
       <div className="flex items-start justify-between">

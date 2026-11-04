@@ -1,4 +1,3 @@
-
 export class OptionResponseDto {
   id: string;
   text: string;

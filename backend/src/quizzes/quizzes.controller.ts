@@ -11,7 +11,9 @@ import {
 import { QuizzesService } from './quizzes.service.js';
 import { CreateQuizDto } from './dto/requests/create-quiz.dto.js';
 
-const uuidPipe = new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.NOT_FOUND });
+const uuidPipe = new ParseUUIDPipe({
+  errorHttpStatusCode: HttpStatus.NOT_FOUND,
+});
 
 @Controller('quizzes')
 export class QuizzesController {

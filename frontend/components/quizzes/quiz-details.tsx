@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { ArrowLeft, Check, CircleHelp, LoaderCircle } from "lucide-react";
-import Link from "next/link";
+import { useEffect, useState } from 'react';
+import { ArrowLeft, Check, CircleHelp, LoaderCircle } from 'lucide-react';
+import Link from 'next/link';
 
-import { quizService } from "@/services/quiz.service";
-import type { Quiz, QuizQuestion } from "@/types/quiz";
+import { quizService } from '@/services/quiz.service';
+import type { Quiz, QuizQuestion } from '@/types/quiz';
 
 const questionTypeLabels = {
-  BOOLEAN: "True / False",
-  INPUT: "Text answer",
-  CHECKBOX: "Multiple choice",
+  BOOLEAN: 'True / False',
+  INPUT: 'Text answer',
+  CHECKBOX: 'Multiple choice',
 };
 
 function QuestionDetails({
@@ -36,13 +36,13 @@ function QuestionDetails({
         {question.text}
       </h2>
 
-      {question.type === "INPUT" ? (
+      {question.type === 'INPUT' ? (
         <div className="rounded-lg bg-gray-50 p-4">
           <p className="mb-1 text-xs font-medium uppercase tracking-wide text-gray-500">
             Expected answer
           </p>
           <p className="font-medium text-gray-900">
-            {question.expectedAnswer || "No expected answer provided"}
+            {question.expectedAnswer || 'No expected answer provided'}
           </p>
         </div>
       ) : (
@@ -52,8 +52,8 @@ function QuestionDetails({
               key={option.id}
               className={`flex items-center justify-between gap-3 rounded-lg border p-4 ${
                 option.isCorrect
-                  ? "border-green-200 bg-green-50"
-                  : "border-gray-200 bg-white"
+                  ? 'border-green-200 bg-green-50'
+                  : 'border-gray-200 bg-white'
               }`}
             >
               <span className="text-sm text-gray-800">{option.text}</span>
@@ -75,7 +75,7 @@ function QuestionDetails({
 export default function QuizDetails({ id }: { id: string }) {
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(() => {
     async function fetchQuiz() {
@@ -84,7 +84,7 @@ export default function QuizDetails({ id }: { id: string }) {
         setQuiz(data);
       } catch (error) {
         setError(
-          error instanceof Error ? error.message : "Failed to load quiz",
+          error instanceof Error ? error.message : 'Failed to load quiz',
         );
       } finally {
         setIsLoading(false);
@@ -147,8 +147,8 @@ export default function QuizDetails({ id }: { id: string }) {
         </h1>
 
         <p className="mt-2 text-sm text-gray-500">
-          {quiz.questions.length}{" "}
-          {quiz.questions.length === 1 ? "question" : "questions"}
+          {quiz.questions.length}{' '}
+          {quiz.questions.length === 1 ? 'question' : 'questions'}
         </p>
       </div>
 

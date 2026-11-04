@@ -9,7 +9,6 @@ import {
 } from 'sequelize-typescript';
 import { Question } from './question.entity.js';
 
-
 @Table
 export class Option extends Model {
   @PrimaryKey

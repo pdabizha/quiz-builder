@@ -7,7 +7,5 @@ interface QuizPageProps {
 export default async function QuizPage({ params }: QuizPageProps) {
   const { id } = await params;
 
-  return (
-    <QuizDetails id={id} />
-  );
+  return <QuizDetails id={id} />;
 }

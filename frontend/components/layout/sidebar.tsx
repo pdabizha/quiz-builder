@@ -42,7 +42,8 @@ export function Sidebar() {
 
         <nav className="space-y-1">
           {navigation.map(({ label, href, icon: Icon }) => {
-            const isActive = pathname === href ||
+            const isActive =
+              pathname === href ||
               (href !== '/quizzes' && pathname.startsWith(`${href}/`));
 
             return (

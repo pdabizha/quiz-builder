@@ -1,4 +1,3 @@
-
 import { QuestionType } from '../../entities/question.entity.js';
 import { OptionResponseDto } from './option-response.dto.js';
 

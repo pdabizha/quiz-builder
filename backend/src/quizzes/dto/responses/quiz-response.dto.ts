@@ -1,4 +1,3 @@
-
 import { QuestionResponseDto } from './question-response.dto.js';
 
 export class QuizResponseDto {

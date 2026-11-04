@@ -20,9 +20,7 @@ export function QuizList() {
         const data = await quizService.getAll();
         setQuizzes(data);
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : 'Failed to load quizzes',
-        );
+        setError(err instanceof Error ? err.message : 'Failed to load quizzes');
       } finally {
         setIsLoading(false);
       }
@@ -45,9 +43,7 @@ export function QuizList() {
       await quizService.delete(id);
       setQuizzes((current) => current.filter((quiz) => quiz.id !== id));
     } catch (err) {
-      setError(
-        err instanceof Error ? err.message : 'Failed to delete quiz',
-      );
+      setError(err instanceof Error ? err.message : 'Failed to delete quiz');
     } finally {
       setDeletingId(null);
     }
