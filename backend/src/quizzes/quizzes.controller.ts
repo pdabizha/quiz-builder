@@ -6,9 +6,12 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  HttpStatus,
 } from '@nestjs/common';
 import { QuizzesService } from './quizzes.service.js';
 import { CreateQuizDto } from './dto/requests/create-quiz.dto.js';
+
+const uuidPipe = new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.NOT_FOUND });
 
 @Controller('quizzes')
 export class QuizzesController {
@@ -23,11 +26,11 @@ export class QuizzesController {
     return this.quizzesService.findAll();
   }
 
-  @Get(':id') findOne(@Param('id', ParseUUIDPipe) id: string) {
+  @Get(':id') findOne(@Param('id', uuidPipe) id: string) {
     return this.quizzesService.findOne(id);
   }
 
-  @Delete(':id') remove(@Param('id', ParseUUIDPipe) id: string) {
+  @Delete(':id') remove(@Param('id', uuidPipe) id: string) {
     return this.quizzesService.remove(id);
   }
 }

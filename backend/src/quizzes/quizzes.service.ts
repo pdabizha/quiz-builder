@@ -10,8 +10,6 @@ import {
   QuizResponseDto,
   QuizListResponseDto,
 } from './dto/responses/quiz-response.dto.js';
-import { QuestionResponseDto } from './dto/responses/question-response.dto.js';
-import { OptionResponseDto } from './dto/responses/option-response.dto.js';
 
 @Injectable()
 export class QuizzesService {
@@ -48,10 +46,16 @@ export class QuizzesService {
       this.quizModel.create(
         {
           title: dto.title,
-          questions: dto.questions.map((q, i) => ({
-            ...q,
-            order: i,
-            options: (q.options ?? []).map((o, j) => ({ ...o, order: j })),
+          questions: dto.questions.map((question, index) => ({
+            text: question.text,
+            type: question.type,
+            expectedAnswer: question.expectedAnswer ?? null,
+            order: index,
+            options: (question.options ?? []).map((option, optionIndex) => ({
+              text: option.text,
+              isCorrect: option.isCorrect,
+              order: optionIndex,
+            })),
           })),
         },
         { include: [{ model: Question, include: [QuizOption] }], transaction },
@@ -77,10 +81,11 @@ export class QuizzesService {
 
   async findOne(id: string): Promise<QuizResponseDto> {
     const quiz = await this.quizModel.findByPk(id, {
-      include: [{ model: Question, include: [QuizOption] }],
-      order: [
-        [Question, 'order', 'ASC'],
-        [Question, QuizOption, 'order', 'ASC'],
+      include: [
+        {
+          model: Question,
+          include: [QuizOption],
+        },
       ],
     });
 

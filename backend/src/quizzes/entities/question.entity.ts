@@ -6,7 +6,6 @@ import {
   Default,
   DataType,
   ForeignKey,
-  BelongsTo,
   HasMany,
 } from 'sequelize-typescript';
 import { Quiz } from './quiz.entity.js';
